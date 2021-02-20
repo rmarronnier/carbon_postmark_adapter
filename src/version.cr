@@ -1,3 +1,3 @@
-module CarbonMailgunAdapter
-  VERSION = "0.2.0"
+module CarbonPostmarkAdapter
+  VERSION = "0.1.0"
 end
