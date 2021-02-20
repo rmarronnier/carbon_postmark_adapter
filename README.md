@@ -1,6 +1,6 @@
-# carbon_mailgun_adapter
+# carbon_postmark_adapter
 
-This is luckyframework/carbon's adapter for Mailgun: https://www.mailgun.com
+This is luckyframework/carbon's adapter for Postmark: https://postmarkapp.com/
 
 https://github.com/luckyframework/carbon
 
@@ -10,69 +10,47 @@ https://github.com/luckyframework/carbon
 
    ```yaml
    dependencies:
-     carbon_mailgun_adapter:
-       github: atnos/carbon_mailgun_adapter
+     carbon_postmark_adapter:
+       github: makisu/carbon_postmark_adapter
    ```
 
 2. Run `shards install`
 
 ## Usage
 
-Set your `MAILGUN_API_KEY`, `MAILGUN_BASE_URI` and `MAILGUN_SEND_DOMAIN` variable inside `.env`
+Set your `POSTMARK_SERVER_TOKEN` inside `.env`
 
 ```
-MAILGUN_API_KEY=key-XXXXXXXXXXXXXXXXXXXXXXXXXX
-MAILGUN_BASE_URI=api.mailgun.net
-MAILGUN_SEND_DOMAIN=sandboxXXXXXXXXXXXXXXXXXXXXX.mailgun.org
+POSTMARK_SERVER_TOKEN=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
 and update your `config/email.cr` file with:
 
 ```crystal
-require "carbon_mailgun_adapter"
+require "carbon_postmark_adapter"
 
 BaseEmail.configure do |settings|
   if Lucky::Env.production?
-    mailgun_key = mailgun_key_from_env
-    mailgun_base_uri = mailgun_base_uri_from_env
-    mailgun_send_domain = mailgun_send_domain_from_env
-    settings.adapter = Carbon::MailgunAdapter.new(api_key: mailgun_key, base_uri: mailgun_base_uri, send_domain: mailgun_send_domain)
+    postmark_server_token = postmark_server_token_from_env
+    settings.adapter = Carbon::PostmarkAdapter.new(server_token: postmark_server_token)
   else
     settings.adapter = Carbon::DevAdapter.new(print_emails: true)
   end
 end
 
-private def mailgun_key_from_env
-  ENV["MAILGUN_API_KEY"]? || raise_missing_key_message
-end
-
-private def mailgun_base_uri_from_env
-  ENV["MAILGUN_BASE_URI"]? || raise_missing_base_uri_message
-end
-
-private def mailgun_send_domain_from_env
-  ENV["MAILGUN_SEND_DOMAIN"]? || raise_missing_send_domain_message
+private def postmark_server_token_from_env
+  ENV["POSTMARK_SERVER_TOKEN"]? || raise_missing_key_message
 end
 
 private def raise_missing_key_message
-  puts "Missing MAILGUN_API_KEY. Set the MAILGUN_API_KEY env variable to '' if not sending emails, or set the MAILGUN_API_KEY ENV var.".colorize.red
-  exit(1)
-end
-
-private def raise_missing_base_uri_message
-  puts "Missing MAILGUN_BASE_URI ENV var.".colorize.red
-  exit(1)
-end
-
-private def raise_missing_send_domain_message
-  puts "Missing MAILGUN_SEND_DOMAIN ENV var.".colorize.red
+  puts "Missing POSTMARK_SERVER_TOKEN. Set the POSTMARK_SERVER_TOKEN env variable to '' if not sending emails, or set the POSTMARK_SERVER_TOKEN ENV var.".colorize.red
   exit(1)
 end
 ```
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/carbon_mailgun_adapter/fork>)
+1. Fork it (<https://github.com/your-github-user/carbon_postmark_adapter/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -80,4 +58,4 @@ end
 
 ## Contributors
 
-- [Bruno Perles](https://github.com/brunto) - creator and maintainer
+- [Xavi Ablaza](https://github.com/xaviablaza) - creator and maintainer

@@ -1,10 +1,10 @@
-name: carbon_mailgun_adapter
-version: 0.2.0
+name: carbon_postmark_adapter
+version: 0.1.0
 
 authors:
-  - Bruno Perles <bruno@atnos.com>
+  - Xavi Ablaza <xavi@makisu.co>
 
-crystal: 0.35.1
+crystal: 0.36.1
 
 license: MIT
 
