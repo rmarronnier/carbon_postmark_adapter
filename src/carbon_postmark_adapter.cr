@@ -51,10 +51,10 @@ class Carbon::PostmarkAdapter < Carbon::Adapter
 
     def build_template_params
       {
-        "TemplateId"    => email.headers["TemplateId"],
-        "TemplateAlias" => email.headers["TemplateAlias"],
+        "TemplateId"    => email.headers["TemplateId"]?,
+        "TemplateAlias" => email.headers["TemplateAlias"]?,
         "TemplateModel" => build_template_model,
-        "InlineCss"     => email.headers["InlineCss"] || true,
+        "InlineCss"     => email.headers["InlineCss"]? || true,
         "From"          => from,
         "To"            => to_postmark_address(email.to),
         "Cc"            => to_postmark_address(email.cc),
@@ -64,7 +64,7 @@ class Carbon::PostmarkAdapter < Carbon::Adapter
         "TrackOpens"    => email.headers["TrackOpens"]?,
         "TrackLinks"    => email.headers["TrackLinks"]?,
         "MessageStream" => email.headers["MessageStream"]?,
-      }
+      }.reject { |_key, value| value.blank? }
     end
 
     # Only supports one-level for now
