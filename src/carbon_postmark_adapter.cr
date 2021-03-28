@@ -40,8 +40,7 @@ class Carbon::PostmarkAdapter < Carbon::Adapter
       email.headers["TemplateAlias"]? || email.headers["TemplateId"]?
     end
 
-    # :nodoc:
-    # Used only for testing
+    # Generates params to send to Postmark
     def params
       if send_template?
         build_template_params
