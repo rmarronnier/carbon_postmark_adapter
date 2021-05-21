@@ -4,7 +4,7 @@ version: 0.2.0
 authors:
   - Xavi Ablaza <xavi@makisu.co>
 
-crystal: 0.36.1
+crystal: ">=0.36.1, < 2.0.0"
 
 license: MIT
 
@@ -16,8 +16,8 @@ dependencies:
 development_dependencies:
   dotenv:
     github: gdotdesign/cr-dotenv
-    version: 0.7.0
+    version: ~> 0.7.0
 
   ameba:
     github: veelenga/ameba
-    version: 0.13.1
+    version: ~> 0.14.2
